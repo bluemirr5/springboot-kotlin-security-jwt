@@ -1,11 +1,11 @@
-package kr.rang2ne.examples.springbootkotlinsecurityjwt
+package kr.rang2ne.examples.springsecurityjwt
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SpringbootKotlinSecurityJwtApplication
+class SpringSecurityJwtApplication
 
 fun main(args: Array<String>) {
-    runApplication<SpringbootKotlinSecurityJwtApplication>(*args)
+    runApplication<SpringSecurityJwtApplication>(*args)
 }

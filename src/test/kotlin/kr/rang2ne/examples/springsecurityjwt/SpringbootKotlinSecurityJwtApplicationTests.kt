@@ -1,4 +1,4 @@
-package kr.rang2ne.examples.springbootkotlinsecurityjwt
+package kr.rang2ne.examples.springsecurityjwt
 
 import org.junit.Test
 import org.junit.runner.RunWith
