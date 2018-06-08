@@ -1,6 +1,6 @@
 package kr.rang2ne.examples.springsecurityjwt
 
-import kr.rang2ne.examples.springsecurityjwt.auth.SSImplUserDetailService
+import kr.rang2ne.examples.springsecurityjwt.springsecurity.SSImplUserDetailService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -29,8 +29,7 @@ class SecurityConfig @Autowired constructor(
     private val tokenHeader: String? = null
     @Value("\${jwt.secret}")
     private val secret: String? = null
-    @Value("\${jwt.route.authentication.path}")
-    private val authenticationPath: String? = null
+
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
@@ -69,10 +68,8 @@ class SecurityConfig @Autowired constructor(
                 .ignoring()
                 .antMatchers(
                         HttpMethod.POST,
-                        authenticationPath
+                        "/pub/**"
                 )
-
-                // allow anonymous resource requests
                 .and()
                 .ignoring()
                 .antMatchers(

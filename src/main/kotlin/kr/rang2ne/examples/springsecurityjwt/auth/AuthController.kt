@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -16,30 +15,26 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController
 @Autowired constructor(
         val authenticationManager: AuthenticationManager,
-        val authService: AuthService,
-        val passwordEncoder: PasswordEncoder
+        val authService: AuthService
 ) {
     @Value("\${jwt.header}")
     private val tokenHeader: String? = null
 
-
-    @PostMapping(value = ["\${jwt.route.authentication.path}"])
+    @PostMapping(value = ["/pub/login"])
     fun signIn(
-            @RequestBody authModel: AuthModel
+            @RequestBody authDTO: AuthDTO
     ): ResponseEntity<*> {
         println("in controller")
         try {
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(authModel.id, authModel.password))
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(authDTO.id, authDTO.password))
         } catch (e: Exception) {
             throw when(e) {
-                is DisabledException -> RAuthException("User is disabled!", e)
-                is BadCredentialsException -> RAuthException("Bad credentials!", e)
+                is DisabledException -> CustomAuthException("User is disabled!", e)
+                is BadCredentialsException -> CustomAuthException("Bad credentials!", e)
                 else -> e
             }
         }
 
-        // load userdetail
-//        val userDetail = SSImplUserDetail(authModel.id, authModel.password)
-        return ResponseEntity.ok(authService.generateToken(authModel.id))
+        return ResponseEntity.ok(authService.generateToken(authDTO.id))
     }
 }

@@ -1,17 +1,12 @@
-package kr.rang2ne.examples.springsecurityjwt.auth
+package kr.rang2ne.examples.springsecurityjwt.springsecurity
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class SSImplUserDetail : UserDetails {
-    val id: String
-    val pass: String
-
-    constructor(id: String, password: String) {
-        this.id = id
-        this.pass = password
-    }
-
+class SSImplUserDetail(
+        private val id: String,
+        private val pass: String
+) : UserDetails {
     override fun getUsername() = id
     override fun getPassword() = pass
 

@@ -1,4 +1,4 @@
-package kr.rang2ne.examples.springsecurityjwt.auth
+package kr.rang2ne.examples.springsecurityjwt.springsecurity
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
