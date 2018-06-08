@@ -7,9 +7,9 @@ class SSImplUserDetail : UserDetails {
     val id: String
     val pass: String
 
-    constructor(authModel: AuthModel) {
-        id = authModel.id
-        pass = authModel.password
+    constructor(id: String, password: String) {
+        this.id = id
+        this.pass = password
     }
 
     override fun getUsername() = id
