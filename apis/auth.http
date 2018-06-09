@@ -5,12 +5,24 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:8080/pub/login
+POST http://localhost:8080/pub/signin
 Content-Type: application/json
 
 {
-    "id": "gs.won",
-    "password": "123434"
+    "id": "gs.won2",
+    "password": "12341234"
+}
+
+###
+
+POST http://localhost:8080/pub/signUp
+Content-Type: application/json
+
+{
+    "id": "gs.won2",
+    "password": "12341234",
+    "nickName": "bluemirr5",
+    "profileImg": "http://aaa.bb.cc/profile.jpg"
 }
 
 ###

@@ -1,4 +1,4 @@
-package kr.rang2ne.examples.springsecurityjwt.auth
+package kr.rang2ne.examples.springsecurityjwt.user
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class AuthService @Autowired constructor(
+class UserService @Autowired constructor(
 ){
     @Value("\${jwt.expiration}")
     private val expiration: Long? = null
     @Value("\${jwt.secret}")
     private val secret: String? = null
 
+    // 토큰 생성
     fun generateToken(id: String): String {
         val claims = HashMap<String, Any>()
         val createdDate = Date()
