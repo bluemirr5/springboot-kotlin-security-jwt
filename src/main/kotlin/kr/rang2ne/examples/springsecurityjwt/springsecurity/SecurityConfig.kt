@@ -16,6 +16,10 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.filter.OncePerRequestFilter
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Configuration
@@ -58,6 +62,19 @@ class SecurityConfig @Autowired constructor(
                 .antMatchers("/h2-console/**/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
+
+
+        val obj = object : OncePerRequestFilter() {
+            override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+                val requestHeader = request.getHeader(tokenHeader)
+                if(requestHeader != null && requestHeader.startsWith("Bearer ")) {
+
+                }
+            }
+        }
+
+        httpSecurity.addFilterBefore(obj, UsernamePasswordAuthenticationFilter::class.java)
+
         httpSecurity.headers().frameOptions().sameOrigin().cacheControl()
     }
 
@@ -65,10 +82,7 @@ class SecurityConfig @Autowired constructor(
         super.configure(web)
         web
                 .ignoring()
-                .antMatchers(
-                        HttpMethod.POST,
-                        "/pub/**"
-                )
+                .antMatchers(HttpMethod.POST, "/pub/**")
                 .and()
                 .ignoring()
                 .antMatchers(
@@ -80,36 +94,8 @@ class SecurityConfig @Autowired constructor(
                         "/**/*.css",
                         "/**/*.js"
                 )
-
-                // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
                 .and()
                 .ignoring()
                 .antMatchers("/h2-console/**/**")
     }
-//
-//        httpSecurity?.addFilterBefore(object : OncePerRequestFilter() {
-//            override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
-//                fun <T> getClaimFromToken(token: String, claimsResolver: Function<Claims, T>): T {
-//                    val claims = Jwts.parser()
-//                            .setSigningKey(secret)
-//                            .parseClaimsJws(token)
-//                            .body
-//                    return claimsResolver.apply(claims)
-//                }
-//
-//                val requestHeader = request.getHeader(tokenHeader)
-//                if(requestHeader?.startsWith("Bearer ") == true) {
-//                    val reqToken = requestHeader.substring(7)
-//                    val userId = getClaimFromToken(reqToken, Function<Claims, String> { it.subject })
-//                    if (SecurityContextHolder.getContext().authentication == null) {
-//                    }
-//                } else {
-//
-//                }
-//                TODO("JwtAuthorizationTokenFilter 따라 구현")
-//            }
-//
-//        }, UsernamePasswordAuthenticationFilter::class.java)
-//    }
-
 }
