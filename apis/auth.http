@@ -5,6 +5,18 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
+POST http://localhost:8080/pub/signUp
+Content-Type: application/json
+
+{
+    "id": "gs.won2",
+    "password": "12341234",
+    "nickName": "bluemirr5",
+    "profileImg": "http://aaa.bb.cc/profile.jpg"
+}
+
+###
+
 POST http://localhost:8080/pub/signin
 Content-Type: application/json
 
@@ -15,14 +27,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/pub/signUp
-Content-Type: application/json
-
-{
-    "id": "gs.won2",
-    "password": "12341234",
-    "nickName": "bluemirr5",
-    "profileImg": "http://aaa.bb.cc/profile.jpg"
-}
+POST http://localhost:8080/api/test
+Authorization: Bearer ##로그인으로 반환된 토큰
 
 ###
