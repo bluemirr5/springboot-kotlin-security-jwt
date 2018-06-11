@@ -1,3 +1,3 @@
 package kr.rang2ne.examples.springsecurityjwt.user
 
-class UserException(message: String, cause: Throwable) : RuntimeException(message, cause)
+class UserException(val code: Int, message: String, cause: Throwable) : RuntimeException(message, cause)
