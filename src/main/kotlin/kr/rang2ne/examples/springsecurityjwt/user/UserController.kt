@@ -36,7 +36,7 @@ class UserController
     }
 
 
-    @PostMapping(value = ["/pub/signin"])
+    @PostMapping(value = ["/pub/signIn"])
     fun signIn(
             @RequestBody reqSignInDTO: ReqSignInDTO
     ): ResponseEntity<*> {
@@ -63,11 +63,11 @@ class UserController
             }
         }
 
-        return ResponseEntity.ok(ResponseEntity.ok(RespSignDTO(
+        return ResponseEntity.ok(RespSignDTO(
                 reqSignInDTO.id,
                 userService.generateToken(reqSignInDTO.id),
                 Date()
-        )))
+        ))
     }
 
     @ExceptionHandler(UserException::class)
