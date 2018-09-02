@@ -102,6 +102,7 @@ class SecurityConfig @Autowired constructor(
         web
                 .ignoring()
                 .antMatchers(HttpMethod.POST, "/pub/**")
+                .antMatchers(HttpMethod.GET, "/pub/**")
                 .and()
                 .ignoring()
                 .antMatchers(
